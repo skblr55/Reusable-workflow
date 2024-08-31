@@ -1,0 +1,26 @@
+# .github/workflows/reusable-nodejs.yml
+name: Reusable Node.js Workflow
+
+on:
+  workflow_call:
+
+jobs:
+  test_and_lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Run tests
+        run: npm test
+        
+      - name: Run linter
+        run: npm run lint
