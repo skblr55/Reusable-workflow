@@ -1,26 +1,22 @@
-# .github/workflows/reusable-nodejs.yml
-name: Reusable Node.js Workflow
+# .github/workflows/reusable-workflow.yml
+name: Reusable Workflow Example
 
 on:
   workflow_call:
+    inputs:
+      username:
+        description: 'The name of the user'
+        required: true
+        type: string
+      environment:
+        description: 'The deployment environment'
+        required: true
+        type: string
+        default: 'production'
 
 jobs:
-  test_and_lint:
+  example_job:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-        
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-          
-      - name: Install dependencies
-        run: npm install
-        
-      - name: Run tests
-        run: npm test
-        
-      - name: Run linter
-        run: npm run lint
+      - name: Echo Inputs
+        run: echo "Hello, ${{ inputs.username }}! Deploying to the ${{ inputs.environment }} environment."
